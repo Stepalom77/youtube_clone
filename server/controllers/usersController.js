@@ -76,11 +76,32 @@ const updateUser = async (req, res) => {
         };
     };
     return res.status(200).json(userUpdated);
+};
+
+const deleteUser = async (req, res) => {
+    let userId = req.params.id;
+    let userDeleted = null;
+    try {
+        userDeleted = await users.deleteOne({
+            $where: {
+                id: userId
+            }
+        })
+    } catch (err) {
+        console.error(err);
+        if(!userDeleted) {
+            return res.status(404).json({message: 'The user you are trying to delete does not exist'})
+        } else {
+            return res.status(400).json({message: 'There was an error'})
+        }
+    };
+    return res.status(204).json({message: 'The user was deleted'});
 }
 
 module.exports = {
     getAll: getUsers,
     getOne: getUser,
     create: createUser,
-    update: updateUser
+    update: updateUser,
+    delete: deleteUser
 }
