@@ -3,5 +3,5 @@ const router = express.Router();
 const users = require('../controllers/usersController')
 
 router.get('/users', users.getAll);
-
+router.get('/users/:id', users.getOne);
 module.exports = router;
