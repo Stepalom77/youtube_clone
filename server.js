@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 7000;
 
 //Import routes
-const tareasRoute = require('./server/routes/tareaRoutes');
+const usersRoute = require('./server/routes/usersRoutes');
 
 //Middlewares
 app.use(express.urlencoded({extended: true}));
@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 //Routes
-app.use('/api/v1', tareasRoute);
+app.use('/api/v1', usersRoute);
 
 
 app.get('/', (req, res) => {

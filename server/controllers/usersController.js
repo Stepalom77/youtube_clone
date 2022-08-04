@@ -26,9 +26,21 @@ const getUser = async (req, res) => {
         };
     };
     return res.status(200).json(userSearched);
+};
+
+const createUser = async (req, res) => {
+    let userCreated = null;
+    try{
+        userCreated = await users.create(req.body)
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({message: 'There was an error'})
+    };
+    return res.status(200).json(userCreated);
 }
 
 module.exports = {
     getAll: getUsers,
-    getOne: getUser
+    getOne: getUser,
+    create: createUser
 }
