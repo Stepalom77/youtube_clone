@@ -37,10 +37,50 @@ const createUser = async (req, res) => {
         return res.status(400).json({message: 'There was an error'})
     };
     return res.status(200).json(userCreated);
+};
+
+const updateUser = async (req, res) => {
+    let userId = req.params.id;
+    let userUpdated = null;
+    let {
+        first_name, last_name, email, username, password, telephone_number, description, payment_method,
+        rating, subscriptions, subscriptors, members, liked_videos 
+    } = req.body
+    try {
+        userUpdated =  await users.findById(userId);
+        userUpdated =  await users.updateMany({
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            username: username,
+            password: password,
+            telephone_number: telephone_number,
+            description: description,
+            payment_method: payment_method,
+            rating: rating,
+            subscriptions: subscriptions,
+            subscriptors: subscriptors,
+            members: members,
+            liked_videos: liked_videos
+        }, {
+            $where: {
+                id: userId
+            }
+        })
+    } catch (err) {
+        console.error(err);
+        if (!userUpdated) {
+            return res.status(404).json({message: 'The user you are trying to updated does not exist'})
+        } else {
+            return res.status(400).json({message: 'There was an error'})
+        };
+    };
+    return res.status(200).json(userUpdated);
 }
 
 module.exports = {
     getAll: getUsers,
     getOne: getUser,
-    create: createUser
+    create: createUser,
+    update: updateUser
 }

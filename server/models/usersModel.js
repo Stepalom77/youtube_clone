@@ -41,7 +41,7 @@ const usersSchema = mongoose.Schema({
         type: String,
         require: false
     },
-    subscriptores: {
+    subscriptors: {
         type: String,
         require: false
     },
