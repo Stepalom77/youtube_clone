@@ -26,7 +26,7 @@ const usersSchema = mongoose.Schema({
         require: false
     },
     description: {
-        type: Text,
+        type: String,
         require: false
     },
     payment_method: {
@@ -54,7 +54,7 @@ const usersSchema = mongoose.Schema({
         require: false
     }
 }, {
-    timestamps: true,
+    timestamps: true
 })
 
 module.exports = mongoose.model('User', usersSchema);
