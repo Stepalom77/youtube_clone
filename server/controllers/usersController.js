@@ -1,22 +1,22 @@
 const users = require('../models/usersModel');
 
 const getUsers = async (req, res) => {
-    let users = [];
+   let allusers = [];
 try {
-    users = await users.find();
+     allusers = await users.find();
     
 } catch (err) {
     console.log(err);
     return res.status(400).json({message: 'There was an error'});
 }
-    return res.status(200).json(users);
+    return res.status(200).json(allusers);
 }
 
 const getUser = async (req, res) => {
-    let userId = req.params.id;
+    //let userId = req.params._id;
     let userSearched = null;
     try {
-        userId = await users.findOne({$where: {id: userId}})
+        userSearched = await users.findById(req.params.id);
     } catch (err) {
         console.error(err);
         if (!userSearched) {
@@ -40,14 +40,13 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    let userId = req.params.id;
     let userUpdated = null;
     let {
         first_name, last_name, email, username, password, telephone_number, description, payment_method,
         rating, subscriptions, subscriptors, members, liked_videos 
     } = req.body
     try {
-        userUpdated =  await users.findById(userId);
+        userUpdated =  await users.findById(req.params.id);
         userUpdated =  await users.updateMany({
             first_name: first_name,
             last_name: last_name,
@@ -62,10 +61,6 @@ const updateUser = async (req, res) => {
             subscriptors: subscriptors,
             members: members,
             liked_videos: liked_videos
-        }, {
-            $where: {
-                id: userId
-            }
         })
     } catch (err) {
         console.error(err);
