@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
-const videosSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const videosSchema = new Schema({
     title: {
             type: String,
             require: [true, 'Please write the title of the video']
