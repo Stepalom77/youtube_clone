@@ -3,20 +3,21 @@ import  User  from '../models/usersModel';
 
 export class UsersController {
      public async getUsers  (req:Request, res:Response) {
+        let allUsers = {};
      try {
-         let allUsers = await User.find({});
-         return res.status(200).json(allUsers); 
+        allUsers = await User.find({}); 
      } catch (err) {
          console.log(err);
          return res.status(400).json({message: 'There was an error'});
      }
-     
+     return res.status(200).json(allUsers);
      }
      
        public async getUser  (req:Request, res:Response) {
          let userSearched = null;
+         let userId = req.params.id;
          try {
-             userSearched = await User.findById(req.params.id);
+             userSearched = await User.findById(userId);
          } catch (err) {
              console.error(err);
              if (!userSearched) {
@@ -41,12 +42,13 @@ export class UsersController {
      
       public async updateUser (req:Request, res:Response) {
          let userUpdated = null;
+         let userId = req.params.id;
          let {
              first_name, last_name, email, username, password, telephone_number, description, payment_method,
              rating, subscriptions, subscribers, members, liked_videos 
          } = req.body
          try {
-             userUpdated =  await User.findById(req.params.id);
+             userUpdated =  await User.findById(userId);
              userUpdated =  await User.updateMany({
                  first_name: first_name,
                  last_name: last_name,
@@ -75,12 +77,14 @@ export class UsersController {
      
       public async deleteUser (req:Request, res:Response) {
          let userDeleted = null;
+         let userId = req.params.id;
+         let userSearched = null;
          try {
-             userDeleted =  await User.findById(req.params.id);
-             userDeleted = await User.deleteOne()
+            userSearched =  await User.findById(userId);
+             userDeleted = await User.remove()
          } catch (err) {
              console.error(err);
-             if(!userDeleted) {
+             if(!userSearched) {
                  return res.status(404).json({message: 'The user you are trying to delete does not exist'})
              } else {
                  return res.status(400).json({message: 'There was an error'})
