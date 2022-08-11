@@ -1,5 +1,16 @@
 import * as mongoose from 'mongoose';
 
+export interface VideosDocument extends mongoose.Document {
+    title: string;
+    description: string;
+    likes: number;
+    dislikes: number;
+    video: string;
+    rating: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+
 const Schema = mongoose.Schema;
 
 const videosSchema = new Schema({
@@ -8,7 +19,7 @@ const videosSchema = new Schema({
             require: [true, 'Please write the title of the video']
     },
     description: {
-            type: Text,
+            type: String,
             require: [true, 'Please write the title of the video']
     },
     likes: {
@@ -26,12 +37,11 @@ const videosSchema = new Schema({
     rating: {
         type: String,
         require: [true, 'Please specify the rating of the video']
-    },
-    users_id: {
-        type: Number,
     }
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('Video', videosSchema);
+const Video = mongoose.model<VideosDocument>('Video', videosSchema);
+
+export default Video;
