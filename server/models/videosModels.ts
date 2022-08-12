@@ -14,6 +14,11 @@ export interface VideosDocument extends mongoose.Document {
 const Schema = mongoose.Schema;
 
 const videosSchema = new Schema({
+    users: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true,
+        ref: 'User'
+    },
     title: {
             type: String,
             require: [true, 'Please write the title of the video']

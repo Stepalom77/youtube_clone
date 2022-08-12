@@ -31,11 +31,18 @@ export class UsersController {
      
       public async createUser (req:Request, res:Response) {
          let userCreated = null;
+         const {email, username} = req.body;
+         let userExist = null;
          try{
-             userCreated = await User.create(req.body)
+            userExist = await User.findOne({email, username});
+            userCreated = await User.create(req.body);
          } catch (err) {
              console.error(err);
-             return res.status(400).json({message: 'There was an error'})
+             if(userExist) {
+                return res.status(400).json({message: 'Error, the user already exist.'})
+             } else {
+                return res.status(400).json({message: 'There was an error'})
+             } 
          };
          return res.status(200).json(userCreated);
      };
