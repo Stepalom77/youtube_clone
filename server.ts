@@ -4,13 +4,15 @@ import morgan from "morgan";
 import cors from "cors";
 import {UsersRoutes} from './server/routes/usersRoutes'
 import {VideosRoutes} from './server/routes/videosRoutes'
+import {PostsRoutes} from './server/routes/postsRoutes'
 import mongoose from "mongoose";
 
 class App {
 
     public app = Express();
     public routeUser: UsersRoutes = new UsersRoutes(); 
-    public routeVideo: VideosRoutes = new VideosRoutes(); 
+    public routeVideo: VideosRoutes = new VideosRoutes();
+    public routePost: PostsRoutes = new PostsRoutes();  
     public mongoUrl: any = process.env.MONGO_URI;
     public PORT = process.env.PORT || 7000;
 
@@ -20,7 +22,8 @@ class App {
         this.get();
         this.listen();
         this.routeUser.routes(this.app);
-        this.routeVideo.routes(this.app);     
+        this.routeVideo.routes(this.app);
+        this.routePost.routes(this.app);     
     }
 
     private config(): void{
@@ -31,10 +34,11 @@ class App {
         this.app.use(cors())
     }
 
-    public routes(app: any): void {
+    /*public routes(app: any): void {
       app.route('/api/v1', this.routeUser);
       app.route('/api/v1', this.routeVideo);
-    }
+      app.route('/api/v1', this.routePost);
+    }*/
 
     private mongoSetup(): void{
         mongoose.Promise = global.Promise;
