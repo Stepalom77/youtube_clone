@@ -41,30 +41,23 @@ export class VideosController {
      };
      
       public async updateVideo (req:Request, res:Response) {
-         let videoUpdated = null;
-         let videoId = req.params.id;
-         let {
-            title, description, likes, dislikes, video, rating
-         } = req.body
-         try {
-            videoUpdated =  await Video.findById(videoId);
-            videoUpdated =  await Video.updateMany({
-                title: title,
-                description: description,
-                likes: likes,
-                dislikes: dislikes,
-                video: video,
-                rating: rating
-             })
-         } catch (err) {
-             console.error(err);
-             if (!videoUpdated) {
-                 return res.status(404).json({message: 'The video you are trying to updated does not exist'})
-             } else {
-                 return res.status(400).json({message: 'There was an error'})
-             };
-         };
-         return res.status(200).json(videoUpdated);
+        let videoSearched = null;
+        let videoId = req.params.id;
+        let videoUpdated = null;
+        try {
+            videoSearched =  await Video.findById(videoId);
+            videoUpdated =  await Video.findByIdAndUpdate(videoId, req.body, {
+               new: true,
+           })
+        } catch (err) {
+            console.error(err);
+            if (!videoSearched) {
+                return res.status(404).json({message: 'The video you are trying to updated does not exist'})
+            } else {
+                return res.status(400).json({message: 'There was an error'})
+            };
+        };
+        return res.status(200).json(videoUpdated);
      };
      
       public async deleteVideo (req:Request, res:Response) {

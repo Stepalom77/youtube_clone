@@ -48,38 +48,23 @@ export class UsersController {
      };
      
       public async updateUser (req:Request, res:Response) {
-         let userUpdated = null;
-         let userId = req.params.id;
-         let {
-             first_name, last_name, email, username, password, telephone_number, description, payment_method,
-             rating, subscriptions, subscribers, members, liked_videos 
-         } = req.body
-         try {
-             userUpdated =  await User.findById(userId);
-             userUpdated =  await User.updateMany({
-                 first_name: first_name,
-                 last_name: last_name,
-                 email: email,
-                 username: username,
-                 password: password,
-                 telephone_number: telephone_number,
-                 description: description,
-                 payment_method: payment_method,
-                 rating: rating,
-                 subscriptions: subscriptions,
-                 subscribers: subscribers,
-                 members: members,
-                 liked_videos: liked_videos
-             })
-         } catch (err) {
-             console.error(err);
-             if (!userUpdated) {
-                 return res.status(404).json({message: 'The user you are trying to updated does not exist'})
-             } else {
-                 return res.status(400).json({message: 'There was an error'})
-             };
-         };
-         return res.status(200).json(userUpdated);
+        let userSearched = null;
+        let userId = req.params.id;
+        let userUpdated = null;
+        try {
+            userSearched =  await User.findById(userId);
+            userUpdated =  await User.findByIdAndUpdate(userId, req.body, {
+               new: true,
+           })
+        } catch (err) {
+            console.error(err);
+            if (!userSearched) {
+                return res.status(404).json({message: 'The user you are trying to updated does not exist'})
+            } else {
+                return res.status(400).json({message: 'There was an error'})
+            };
+        };
+        return res.status(200).json(userUpdated);
      };
      
       public async deleteUser (req:Request, res:Response) {
