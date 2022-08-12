@@ -7,6 +7,7 @@ import {VideosRoutes} from './server/routes/videosRoutes'
 import {PostsRoutes} from './server/routes/postsRoutes'
 import {CommentsRoutes} from './server/routes/commentsRoutes'
 import mongoose from "mongoose";
+import {auth, requiresAuth} from 'express-openid-connect'
 
 class App {
 
@@ -35,6 +36,14 @@ class App {
         this.app.use(Express.static('public'));
         this.app.use(morgan('dev'))
         this.app.use(cors())
+        this.app.use(auth({
+          issuerBaseURL: process.env.ISSUER_BASE_URL,
+          baseURL: process.env.BASE_URL,
+          clientID: process.env.CLIENT_ID,
+          secret: process.env.SECRET,
+          idpLogout: true,
+          authRequired: false
+        }))
     }
 
     private mongoSetup(): void{
