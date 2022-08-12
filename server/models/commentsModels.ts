@@ -1,4 +1,4 @@
-/*import * as mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export interface CommentsDocument extends mongoose.Document {
     content: string;
@@ -44,4 +44,4 @@ const commentSchema = new Schema({
 
 const Comment = mongoose.model<CommentsDocument>('Comment', commentSchema);
 
-export default Comment;*/
+export default Comment;
