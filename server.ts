@@ -7,8 +7,7 @@ import {VideosRoutes} from './server/routes/videosRoutes'
 import {PostsRoutes} from './server/routes/postsRoutes'
 import {CommentsRoutes} from './server/routes/commentsRoutes'
 import mongoose from "mongoose";
-import {auth, requiresAuth} from 'express-openid-connect'
-
+import {auth} from 'express-openid-connect'
 class App {
 
     public app = Express();
@@ -42,7 +41,8 @@ class App {
           clientID: process.env.CLIENT_ID,
           secret: process.env.SECRET,
           idpLogout: true,
-          authRequired: false
+          authRequired: false,
+          auth0Logout: true
         }))
     }
 

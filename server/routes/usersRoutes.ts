@@ -1,16 +1,17 @@
 import { Express } from "express";
 import { UsersController } from "../controllers/usersController";
-import {auth, requiresAuth} from 'express-openid-connect'
+//import {requiresAuth} from 'express-openid-connect'
+import { checkJwt } from "../middlewares/authMiddleware";
 export class UsersRoutes {
     public userController: UsersController = new UsersController();
     public routes(app: Express): void {
         app.route('/api/users')
-        .get(this.userController.getUsers, requiresAuth())
+        .get(checkJwt, this.userController.getUsers)
         .post(this.userController.createUser)
 
         app.route('/api/users/:id')
-        .get(this.userController.getUser, requiresAuth())
-        .put(this.userController.updateUser, requiresAuth())
-        .delete(this.userController.deleteUser, requiresAuth())
+        .get(checkJwt, this.userController.getUser)
+        .put(checkJwt, this.userController.updateUser)
+        .delete(checkJwt, this.userController.deleteUser)
     } 
 }
