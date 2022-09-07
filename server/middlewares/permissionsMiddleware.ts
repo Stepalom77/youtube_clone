@@ -1,9 +1,11 @@
-import jwtAuthz from 'express-jwt-authz'
+import jwtAuthz, {AuthzScopes} from 'express-jwt-authz'
 
-export const checkPermissions = (permissions: string) => {
-    return jwtAuthz([permissions], {
+export const checkPermissions = (permissions: string | string[]) => {
+    return jwtAuthz([permissions] as AuthzScopes , {
       customScopeKey: "permissions",
       checkAllScopes: true,
       failWithError: true
     });
   };
+
+

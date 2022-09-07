@@ -18,12 +18,12 @@ const commentSchema = new Schema({
     },
     videos: {
         type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        require: false,
         ref: 'Video'
     },
     posts: {
         type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        require: false,
         ref: 'Post'
     },
     content: {

@@ -42,7 +42,12 @@ class App {
           secret: process.env.SECRET,
           idpLogout: true,
           authRequired: false,
-          auth0Logout: true
+          auth0Logout: true,
+          /*authorizationParams: {
+            response_type: 'code',
+            audience: 'http://localhost:7000/',
+            scope: 'openid profile email read:products',
+          }*/
         }))
     }
 

@@ -73,7 +73,7 @@ export class UsersController {
          let userSearched = null;
          try {
             userSearched =  await User.findById(userId);
-             userDeleted = await User.remove()
+            userDeleted = await User.remove()
          } catch (err) {
              console.error(err);
              if(!userSearched) {
