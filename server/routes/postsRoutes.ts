@@ -12,5 +12,11 @@ export class PostsRoutes {
         .get(this.postsController.getPost)
         .put(this.postsController.updatePost)
         .delete(this.postsController.deletePost)
+
+        app.route('/api/posts-with-comments')
+        .get(this.postsController.getPostsWithComments)
+
+        app.route('/api/posts-with-comments/:id')
+        .get(this.postsController.getPostWithComments)
     } 
 }

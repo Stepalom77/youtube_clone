@@ -1,21 +1,23 @@
 import * as mongoose from 'mongoose';
+import { CommentsDocument } from './commentsModels';
 
-export interface PostsDocument extends mongoose.Document {
+export interface PostsDocument {
     content: string;
-    likes: number;
-    dislikes: number;
+    likes?: number;
+    dislikes?: number;
+    user: mongoose.Types.ObjectId;
+    comments?: mongoose.Types.Array<mongoose.Types.ObjectId>;
     createdAt: Date;
     updatedAt: Date;
   }
 
-const Schema = mongoose.Schema;
+  export interface PopulatedPost {
+    comments?: CommentsDocument | null;
+  }
 
-const postSchema = new Schema({
-    users: {
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: 'User'
-    },
+export const PostSchema = mongoose.Schema;
+
+const postSchema = new PostSchema({
     content: {
             type: String,
             require: [true, 'Please write the content of the post']
@@ -27,7 +29,17 @@ const postSchema = new Schema({
     dislikes: {
         type: Number,
         require: false
-    }
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true,
+        ref: 'User'
+    },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        require: false,
+        ref: 'Comment'
+    }]
 }, {
     timestamps: true
 });

@@ -12,5 +12,11 @@ export class VideosRoutes {
         .get(this.videosController.getVideo)
         .put(this.videosController.updateVideo)
         .delete(this.videosController.deleteVideo)
+
+        app.route('/api/videos-with-comments')
+        .get(this.videosController.getVideosWithComments)
+
+        app.route('/api/videos-with-comments')
+        .get(this.videosController.getVideoWithComments)
     } 
 }

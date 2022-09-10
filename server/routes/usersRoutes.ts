@@ -15,5 +15,23 @@ export class UsersRoutes {
         .get(this.userController.getUser)
         .put(this.userController.updateUser)
         .delete(this.userController.deleteUser)
+
+        app.route('/api/users-with-comments')
+        .get(this.userController.getUsersWithComments)
+
+        app.route('/api/users-with-videos')
+        .get(this.userController.getUsersWithVideos)
+
+        app.route('/api/users-with-posts')
+        .get(this.userController.getUsersWithPosts)
+
+        app.route('/api/users-with-comments/:id')
+        .get(this.userController.getUserWithComments)
+
+        app.route('/api/users-with-videos/:id')
+        .get(this.userController.getUserWithVideos)
+
+        app.route('/api/users-with-posts/:id')
+        .get(this.userController.getUserWithPosts)
     } 
 }

@@ -1,26 +1,38 @@
 import * as mongoose from 'mongoose';
+import { VideosDocument }  from './videosModels';
+import { CommentsDocument } from './commentsModels';
+import { PostsDocument } from './postsModels';
 
-export interface UsersDocument extends mongoose.Document {
+export interface UsersDocument {
     first_name: string;
     last_name: string;
     email: string;
     username: string;
     password: string;
-    telephone_number: number;
-    description: string;
-    payment_method: string;
-    rating: string;
-    subscriptions: string;
-    subscribers: string;
-    members: string;
-    liked_videos: string;
+    telephone_number?: number;
+    description?: string;
+    payment_method?: string;
+    rating?: string;
+    subscriptions?: string;
+    subscribers?: string;
+    members?: string;
+    liked_videos?: string;
+    comments?: mongoose.Types.Array<mongoose.Types.ObjectId>;
+    posts?: mongoose.Types.Array<mongoose.Types.ObjectId>;
+    videos?: mongoose.Types.Array<mongoose.Types.ObjectId>;
     createdAt: Date;
     updatedAt: Date;
   }
 
-const Schema = mongoose.Schema;
+export interface PopulatedUser {
+    comments?: CommentsDocument | null;
+    posts?: PostsDocument | null;
+    videos?: VideosDocument | null;
+  }
 
-const userSchema = new Schema({
+const UserSchema = mongoose.Schema;
+
+const userSchema = new UserSchema<UsersDocument>({
     first_name : {
         type: String,
         require : [true, 'Please write your first name']
@@ -74,7 +86,28 @@ const userSchema = new Schema({
     liked_videos: {
         type: String,
         require: false
-    }
+    },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            require: false,
+            ref: 'Comment'
+        }
+    ],
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            require: false,
+            ref: 'Post'
+        }
+    ],
+    videos: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            require: false,
+            ref: 'Video'
+        }
+    ]
 }, {
     timestamps: true
 })

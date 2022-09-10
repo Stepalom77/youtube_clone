@@ -1,24 +1,26 @@
 import * as mongoose from 'mongoose';
+import { CommentsDocument } from './commentsModels';
 
-export interface VideosDocument extends mongoose.Document {
+export interface VideosDocument {
     title: string;
     description: string;
-    likes: number;
-    dislikes: number;
+    likes?: number;
+    dislikes?: number;
     video: string;
     rating: string;
+    user: mongoose.Types.ObjectId;
+    comments?: mongoose.Types.Array<mongoose.Types.ObjectId>;
     createdAt: Date;
     updatedAt: Date;
   }
 
-const Schema = mongoose.Schema;
+  export interface PopulatedVideo {
+    comments?: CommentsDocument | null;
+  }
 
-const videosSchema = new Schema({
-    users: {
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: 'User'
-    },
+export const VideoSchema = mongoose.Schema;
+
+const videosSchema = new VideoSchema({
     title: {
             type: String,
             require: [true, 'Please write the title of the video']
@@ -42,7 +44,17 @@ const videosSchema = new Schema({
     rating: {
         type: String,
         require: [true, 'Please specify the rating of the video']
-    }
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true,
+        ref: 'User'
+    },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        require: false,
+        ref: 'Comment'
+    }]
 }, {
     timestamps: true
 });
