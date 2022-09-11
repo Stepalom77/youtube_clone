@@ -6,6 +6,7 @@ export interface VideosDocument {
     description: string;
     likes?: number;
     dislikes?: number;
+    views: number;
     video: string;
     rating: string;
     user: mongoose.Types.ObjectId;
@@ -36,6 +37,11 @@ const videosSchema = new VideoSchema({
     dislikes: {
         type: Number,
         require: false
+    },
+    views: {
+        type: Number,
+        require: true,
+        default: 0
     },
     video: {
         type: String,
