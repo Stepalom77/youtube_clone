@@ -131,7 +131,7 @@ export class UsersController {
                 return res.status(400).json({message: 'There was an error'})
              } 
          };
-         return res.status(200).json(userCreated);
+         return res.status(201).json(userCreated);
      };
      
       public async updateUser (req:Request, res:Response) {

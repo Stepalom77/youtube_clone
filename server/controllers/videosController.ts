@@ -82,7 +82,7 @@ export class VideosController {
              console.error(err);
              return res.status(400).json({message: 'There was an error'})
          };
-         return res.status(200).json(videoCreated);
+         return res.status(201).json(videoCreated);
      };
      
       public async updateVideo (req:Request, res:Response) {

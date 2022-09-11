@@ -8,7 +8,6 @@ export interface UsersDocument {
     last_name: string;
     email: string;
     username: string;
-    password: string;
     telephone_number?: number;
     description?: string;
     payment_method?: string;
@@ -50,10 +49,6 @@ const userSchema = new UserSchema<UsersDocument>({
         type: String,
         require: [true, 'Please write your username'],
         unique: true
-    },
-    password: {
-        type: String,
-        require : [true, 'Please write your password']
     },
     telephone_number: {
         type: Number,

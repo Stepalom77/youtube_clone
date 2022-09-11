@@ -79,7 +79,7 @@ export class PostsController {
              console.error(err);
              return res.status(400).json({message: 'There was an error'})
          };
-         return res.status(200).json(savedPost);
+         return res.status(201).json(savedPost);
      };
      
       public async updatePost (req:Request, res:Response) {

@@ -64,7 +64,7 @@ export class CommentsController {
              console.error(err);
              return res.status(400).json({message: 'There was an error'})
          };
-         return res.status(200).json(savedComment);
+         return res.status(201).json(savedComment);
      };
 
       public async updateComment (req:Request, res:Response) {
