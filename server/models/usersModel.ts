@@ -12,10 +12,10 @@ export interface UsersDocument {
     description?: string;
     payment_method?: string;
     rating?: string;
-    subscriptions?: string;
-    subscribers?: string;
-    members?: string;
-    liked_videos?: string;
+    subscriptions?: mongoose.Types.Array<String>;
+    subscribers?: mongoose.Types.Array<String>;
+    members?: mongoose.Types.Array<String>;
+    liked_videos?: mongoose.Types.Array<String>;
     comments?: mongoose.Types.Array<mongoose.Types.ObjectId>;
     posts?: mongoose.Types.Array<mongoose.Types.ObjectId>;
     videos?: mongoose.Types.Array<mongoose.Types.ObjectId>;
@@ -66,22 +66,30 @@ const userSchema = new UserSchema<UsersDocument>({
         type: String,
         require: false
     },
-    subscriptions: {
-        type: String,
-        require: false
-    },
-    subscribers: {
-        type: String,
-        require: false
-    },
-    members: {
-        type: String,
-        require: false
-    },
-    liked_videos: {
-        type: String,
-        require: false
-    },
+    subscriptions: [
+        {
+            type: String,
+            require: false
+        }
+    ],
+    subscribers: [
+        {
+            type: String,
+            require: false
+        }
+    ],
+    members: [
+        {
+            type: String,
+            require: false
+        }
+    ],
+    liked_videos: [
+        {
+            type: String,
+            require: false
+        }
+    ],
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
