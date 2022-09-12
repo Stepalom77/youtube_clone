@@ -6,12 +6,12 @@ export class VideosRoutes {
     public routes(app: Express): void {
         app.route('/api/videos')
         .get(this.videosController.getVideos)
-        .post(requiresAuth(), this.videosController.createVideo)
+        .post(/*requiresAuth(),*/ this.videosController.createVideo)
 
         app.route('/api/videos/:id')
         .get(this.videosController.getVideo)
-        .put(requiresAuth(), this.videosController.updateVideo)
-        .delete(requiresAuth(), this.videosController.deleteVideo)
+        .put(/*requiresAuth(),*/ this.videosController.updateVideo)
+        .delete(/*requiresAuth(),*/ this.videosController.deleteVideo)
 
         app.route('/api/videos-with-comments')
         .get(this.videosController.getVideosWithComments)
