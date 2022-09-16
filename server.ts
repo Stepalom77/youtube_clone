@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import * as dotenv from "dotenv";
 import Express, {Request, Response} from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -9,6 +9,8 @@ import {PostsRoutes} from './server/routes/postsRoutes'
 import {CommentsRoutes} from './server/routes/commentsRoutes'
 import mongoose from "mongoose";
 import {auth} from 'express-openid-connect'
+
+dotenv.config();
 class App {
 
     public app = Express();
