@@ -31,7 +31,7 @@ export class CommentsController {
              if (!commentSearched) {
                  return res.status(404).json({message: 'Error, the comment your searched does not exists'})
              } else {
-                 return res.status(400).json({message: 'There was an error'})
+                 return res.status(400).json({message: 'There was a error'})
              };
          };
          return res.status(200).json(commentSearched);
