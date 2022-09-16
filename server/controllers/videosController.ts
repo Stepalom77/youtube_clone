@@ -62,7 +62,7 @@ export class VideosController {
       public async createVideo (req:Request, res:Response) {
          let videoCreated = null;
          let savedVideo = null;
-         let {title, description, likes, dislikes, video, rating, user, comments} = req.body
+         let {title, description, likes, dislikes, views, video, rating, user, comments} = req.body
          let usersModel = await User.findById(user)
          try{
             videoCreated = await Video.create({
@@ -70,6 +70,7 @@ export class VideosController {
                 description,
                 likes,
                 dislikes,
+                views,
                 video,
                 rating,
                 user: usersModel?._id,

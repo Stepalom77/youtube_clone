@@ -2,6 +2,7 @@ import 'dotenv/config'
 import Express, {Request, Response} from "express";
 import morgan from "morgan";
 import cors from "cors";
+import bodyParser from 'body-parser';
 import {UsersRoutes} from './server/routes/usersRoutes'
 import {VideosRoutes} from './server/routes/videosRoutes'
 import {PostsRoutes} from './server/routes/postsRoutes'
@@ -31,7 +32,7 @@ class App {
 
     private config(): void{
         this.app.use(Express.json());
-        this.app.use(Express.urlencoded({extended: true}));
+        this.app.use(bodyParser.urlencoded({extended: true}));
         this.app.use(Express.static('public'));
         this.app.use(morgan('dev'))
         this.app.use(cors())
@@ -43,11 +44,6 @@ class App {
           idpLogout: true,
           authRequired: false,
           auth0Logout: true,
-          /*authorizationParams: {
-            response_type: 'code',
-            audience: 'http://localhost:7000/',
-            scope: 'openid profile email read:products',
-          }*/
         }))
     }
 
