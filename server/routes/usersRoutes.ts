@@ -7,7 +7,7 @@ export class UsersRoutes {
     public userController: UsersController = new UsersController();
     public routes(app: Express): void {
         app.route('/api/users')
-        .get(checkJwt, this.userController.getUsers)
+        .get(this.userController.getUsers)
         .post(this.userController.createUser)
 
         app.route('/api/users/:id')

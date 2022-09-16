@@ -7,7 +7,7 @@ export class CommentsRoutes {
     public routes(app: Express): void {
         app.route('/api/comments')
         .get(this.commentsController.getComments)
-        .post(checkJwt, this.commentsController.createComment)
+        .post(this.commentsController.createComment)
 
         app.route('/api/comments/:id')
         .get(this.commentsController.getComment)

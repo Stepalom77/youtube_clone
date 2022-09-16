@@ -6,7 +6,7 @@ export class VideosRoutes {
     public routes(app: Express): void {
         app.route('/api/videos')
         .get(this.videosController.getVideos)
-        .post(checkJwt, this.videosController.createVideo)
+        .post(this.videosController.createVideo)
 
         app.route('/api/videos/:id')
         .get(this.videosController.getVideo)
