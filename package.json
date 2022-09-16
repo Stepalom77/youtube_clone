@@ -2,11 +2,12 @@
   "name": "youtube_clone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.ts",
-    "dev": "nodemon server.ts"
+    "start": "node dist/server.js",
+    "dev": "nodemon server.ts",
+    "build": "tsc -p ."
   },
   "author": "",
   "license": "ISC",
