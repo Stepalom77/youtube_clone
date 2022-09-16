@@ -18,7 +18,7 @@ class App {
     public routeVideo: VideosRoutes = new VideosRoutes();
     public routePost: PostsRoutes = new PostsRoutes();
     public routeComment: CommentsRoutes = new CommentsRoutes();  
-    public mongoUrl: any = process.env.MONGO_URI;
+    public mongoUrl: any = process.env.MONGO_URI || process.env.MONGO_URL;
     public PORT = process.env.PORT || 7000;
 
     constructor() {
